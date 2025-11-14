@@ -15,6 +15,7 @@ SRC_DIRS  = src\main \
 			src\SWC\SpeedSensor \
 			src\BSW
 TEST_DIR = test
+MAIN = src/main/main.c
 
 # ===============================
 # Windows \ → /
@@ -62,9 +63,9 @@ tests: $(filter-out $(MAIN),$(SRC_FILES)) $(TEST_FILES)
 # =================================
 # Execute tests
 # =================================
-run-tests: build-tests
+run-tests: tests
 	@echo ==== Executing tests ====
-	@cd $(TEST_DIR) && test_suma.exe
+	@./$(TEST_TARGET)
 
 # =================================
 # Execute main application
