@@ -31,9 +31,7 @@
 /*===========================================================================*
  * Header Files
  *===========================================================================*/
-#include "Rte.h"
-#include <stdint.h>
-#include <stdio.h>
+#include "NvM.h"
 
 /*===========================================================================*
  * Local Preprocessor #define Constants
@@ -50,6 +48,7 @@
 /*===========================================================================*
  * Local Variables Definitions
  *===========================================================================*/
+static uint8_t NvM_BlockStorage[10] = {0};
 
 /*===========================================================================*
  * Local Function Prototypes
@@ -64,14 +63,24 @@
  *===========================================================================*/
 
 /***************************************************************************//**
-* @fn         SpeedDisplay_Runnable
-* @brief      Read the speed value from the RTE
-* @param [in] void
+* @fn         NvM_Write
+* @brief      Write data in the non volatile memory
+* @param [in] blockId - Where to store the data
+* @param [in] value - The value of the data
 * @return     void
 ******************************************************************************/
-void SpeedDisplay_Runnable(void)
+void NvM_Write(uint16_t blockId, uint8_t value) 
 {
-    uint16_t speed;
-    Rte_Read_VehicleSpeed(&speed);
-    printf("Display Speed: %u km/h\n", speed);
+    NvM_BlockStorage[blockId] = value;
+}
+
+/***************************************************************************//**
+* @fn         NvM_Read
+* @brief      Read data from the non volatile memory
+* @param [in] blockId - From where retrieve the data
+* @return     The value of the data
+******************************************************************************/
+uint8_t NvM_Read(uint16_t blockId) 
+{
+    return NvM_BlockStorage[blockId];
 }

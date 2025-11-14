@@ -13,7 +13,9 @@ SRC_DIRS  = src\main \
 			src\SWC \
 			src\SWC\SpeedDisplay \
 			src\SWC\SpeedSensor \
-			src\BSW
+			src\BSW \
+			src\BSW\NvM
+
 TEST_DIR = test
 MAIN = src/main/main.c
 

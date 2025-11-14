@@ -31,7 +31,7 @@
 /*===========================================================================*
  * Header Files
  *===========================================================================*/
-#include <stdio.h>
+#include <stdint.h>
 #include <unistd.h>
 #include "SpeedDisplay.h"
 #include "SpeedSensor.h"

@@ -32,6 +32,7 @@
  * Header Files
  *===========================================================================*/
 #include "Rte.h"
+#include <stdint.h>
 #include <stdio.h>
 
 /*===========================================================================*
@@ -70,7 +71,13 @@
 ******************************************************************************/
 void SpeedSensor_Runnable(void)
 {
-    static uint16 speed = 0;
+    static uint16_t speed = 0;
     speed = (speed + 5) % 200;   // sensor simulation
     Rte_Write_VehicleSpeed(speed);
+
+    if (speed > 100)
+    {
+        Rte_Call_NvM_WriteBlock(1, speed);
+        printf("[SpeedSensor] New speed stored: %u\n", speed);
+    }    
 }

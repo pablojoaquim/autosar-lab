@@ -32,7 +32,7 @@
 /*===========================================================================*
  * Header Files
  *===========================================================================*/
-#include "Rte_Types.h"
+#include <stdint.h>
 
 #   ifdef __cplusplus
 extern "C"
@@ -55,8 +55,11 @@ typedef int Std_ReturnType;
 /*===========================================================================*
  * Exported Function Prototypes
  *===========================================================================*/
-Std_ReturnType Rte_Write_VehicleSpeed(uint16 value);
-Std_ReturnType Rte_Read_VehicleSpeed(uint16 *value);
+Std_ReturnType Rte_Write_VehicleSpeed(uint16_t value);
+Std_ReturnType Rte_Read_VehicleSpeed(uint16_t *value);
+
+uint8_t  Rte_Call_NvM_ReadBlock(uint16_t blockId);
+void     Rte_Call_NvM_WriteBlock(uint16_t blockId, uint8_t value);
 
 #   ifdef __cplusplus
 }         /* extern "C" */
