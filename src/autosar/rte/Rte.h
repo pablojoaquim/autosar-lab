@@ -4,6 +4,10 @@
  * @details Interface between BSW and Application SWCs
  * 
  * Location: src/autosar/rte/Rte.h
+ * 
+ * The RTE provides two types of communication:
+ * 1. Internal (SWC to SWC in same ECU) - via SignalRouter
+ * 2. External (SWC to other ECUs) - via COM module + buses
  */
 
 #ifndef RTE_H
@@ -11,7 +15,7 @@
 
 #include "Std_Types.h"
 #include "Rte_Type.h"
-#include "Com.h"
+#include "SignalRouter.h"
 
 /**
  * @brief Initialize the RTE

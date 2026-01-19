@@ -20,6 +20,7 @@ AUTOSAR_SWC_DIR := src/autosar/swc
 
 # AUTOSAR include paths
 AUTOSAR_INCLUDES := -Isrc/autosar/bsw/os \
+                    -Isrc/autosar/bsw/signalrouter \
                     -Isrc/autosar/bsw/com \
                     -Isrc/autosar/rte \
                     -Isrc/autosar/swc/template \
@@ -27,6 +28,7 @@ AUTOSAR_INCLUDES := -Isrc/autosar/bsw/os \
 
 # AUTOSAR source files
 AUTOSAR_BSW_SRCS := $(wildcard $(AUTOSAR_BSW_DIR)/os/*.c) \
+                    $(wildcard $(AUTOSAR_BSW_DIR)/signalrouter/*.c) \
                     $(wildcard $(AUTOSAR_BSW_DIR)/com/*.c)
 
 AUTOSAR_RTE_SRCS := $(wildcard $(AUTOSAR_RTE_DIR)/*.c)

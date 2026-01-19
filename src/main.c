@@ -7,6 +7,7 @@
  */
 
 #include "Os.h"
+#include "SignalRouter.h"
 #include "Com.h"
 #include "Rte.h"
 #include "Swc_Template.h"
@@ -36,6 +37,11 @@ static void BSW_Init(void) {
         exit(1);
     }
     
+    if (SignalRouter_Init() != E_OK) {
+        printf("[ERROR] SignalRouter initialization failed!\n");
+        exit(1);
+    }
+    
     if (Com_Init() != E_OK) {
         printf("[ERROR] COM initialization failed!\n");
         exit(1);
@@ -50,11 +56,13 @@ static void RTE_Init_And_Start(void) {
     printf("  AUTOSAR LAB - RTE Initialization\n");
     printf("========================================\n");
     
+    /* Sets up port mappings, data structures */
     if (Rte_Init() != E_OK) {
         printf("[ERROR] RTE initialization failed!\n");
         exit(1);
     }
     
+    /* Activates the RTE (makes it operational) */
     if (Rte_Start() != E_OK) {
         printf("[ERROR] RTE start failed!\n");
         exit(1);
@@ -95,8 +103,8 @@ static void Register_SWC_Runnables(void) {
     // Os_RegisterTask(TASK_10MS, Swc_Kata001_Runnable_10ms, 10, "SWC_Kata001_10ms");
     // Os_RegisterTask(TASK_100MS, Swc_Kata001_Runnable_100ms, 100, "SWC_Kata001_100ms");
     
-    /* Register COM main function */
-    Os_RegisterTask(TASK_1MS, Com_MainFunction, 1, "COM_MainFunction");
+    /* Register COM main functions */
+    Os_RegisterTask(TASK_1MS, Com_MainFunctionTx, 5, "COM_MainFunctionTx");
     
     printf("\n");
 }
@@ -107,9 +115,9 @@ static void Set_Test_Inputs(void) {
     printf("  AUTOSAR LAB - Setting Test Inputs\n");
     printf("========================================\n");
     
-    /* Set some initial test values */
-    Com_SendSignal(COM_SIGNAL_INPUT_A, 42);
-    Com_SendSignal(COM_SIGNAL_INPUT_B, 58);
+    /* Set some initial test values via SignalRouter (internal signals) */
+    SignalRouter_Write(SIGNAL_INPUT_A, 42);
+    SignalRouter_Write(SIGNAL_INPUT_B, 58);
     
     printf("[MAIN] Input A = 42\n");
     printf("[MAIN] Input B = 58\n");
